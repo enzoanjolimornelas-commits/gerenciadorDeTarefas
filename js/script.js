@@ -3,6 +3,10 @@ const secaoConcluido = document.getElementById("concluido");
 const botaoCriarTarefa = document.getElementById("criarTarefa");
 const padrao = document.querySelector(".default");
 
+const hoje = new Date();
+const data = hoje.toLocaleDateString('pt-BR');
+console.log(data);
+
 let tarefas = [];
 
 function salvarNoLocalStorage() {
@@ -12,6 +16,7 @@ function salvarNoLocalStorage() {
 function carregarDoLocalStorage() {
     const tarefasSalvas = localStorage.getItem("minhasTarefas");
     if (tarefasSalvas) {
+        padrao.style.display = 'none';
         padrao.style.display = 'none';
         tarefas = JSON.parse(tarefasSalvas);
         tarefas.forEach(tarefaObj => {
@@ -23,29 +28,6 @@ function carregarDoLocalStorage() {
 window.addEventListener("DOMContentLoaded", () => {
     carregarDoLocalStorage();
 });
-
-function trocarTag(elemento, novaTag) {
-    if (!elemento) return;
-
-    const novoEl = document.createElement(novaTag);
-    
-    if (elemento.tagName.toLowerCase() === 'select') {
-        novoEl.innerHTML = elemento.options[elemento.selectedIndex].text;
-    } else if (elemento.tagName.toLowerCase() === 'input' || elemento.tagName.toLowerCase() === 'textarea') {
-        novoEl.innerHTML = elemento.value; 
-    } else {
-        novoEl.innerHTML = elemento.innerHTML;
-    }
-    
-    Array.from(elemento.attributes).forEach(attr => {
-        const nomesIgnorados = ['value', 'type', 'name', 'required'];
-        if (!nomesIgnorados.includes(attr.name)) {
-            novoEl.setAttribute(attr.name, attr.value);
-        }
-    });
-    
-    elemento.replaceWith(novoEl);
-}
 
 function renderizarTarefa(tarefaObj) {
     const novaTarefa = document.createElement("p");
@@ -75,22 +57,38 @@ function renderizarTarefa(tarefaObj) {
     priP.textContent = tarefaObj.prioridade;
     novaTarefa.appendChild(priP);
 
+    const label4 = document.createElement("label");
+    label4.textContent = "Data: ";
+    novaTarefa.appendChild(label4);
+
+    const dataP = document.createElement("p");
+    dataP.textContent = data;
+    novaTarefa.appendChild(dataP);
+
+    const botoes = document.createElement("div");
+    botoes.style.display = 'flex';
+    botoes.style.gap = '5px';
+    novaTarefa.appendChild(botoes);
+
     const botaoConcluir = document.createElement("button");
     botaoConcluir.classList.add("adicionarTarefa");
     botaoConcluir.textContent = "Concluir tarefa";
-    novaTarefa.appendChild(botaoConcluir);
+    botaoConcluir.style.backgroundColor = 'green';
+    botoes.appendChild(botaoConcluir);
 
     const botaoEditar = document.createElement("button");
     botaoEditar.classList.add("adicionarTarefa");
     botaoEditar.textContent = "Editar";
-    novaTarefa.appendChild(botaoEditar);
+    botoes.appendChild(botaoEditar);
 
     const botaoExcluir = document.createElement("button");
     botaoExcluir.classList.add("adicionarTarefa");
     botaoExcluir.textContent = "Excluir";
-    novaTarefa.appendChild(botaoExcluir);
+    botaoExcluir.style.backgroundColor = 'red';
+    botoes.appendChild(botaoExcluir);
 
     if (tarefaObj.concluido) {
+        descP.style.textDecoration = 'line-through';
         secaoConcluido.appendChild(novaTarefa);
         botaoConcluir.remove();
     } else {
@@ -101,6 +99,12 @@ function renderizarTarefa(tarefaObj) {
         event.preventDefault();
         secaoConcluido.appendChild(novaTarefa);
         botaoConcluir.remove();
+
+        label2.style.display = 'none';
+        catP.style.display = 'none';
+
+        label3.style.display = 'none';
+        priP.style.display = 'none';
 
         tarefaObj.concluido = true;
         salvarNoLocalStorage();
@@ -227,6 +231,7 @@ function adicionarTarefa() {
             descricao: descricaoTarefa.value,
             categoria: categoriaTarefa.options[categoriaTarefa.selectedIndex].text,
             prioridade: prioridadeTarefa.options[prioridadeTarefa.selectedIndex].text,
+            data: data,
             concluido: false
         };
 

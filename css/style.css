@@ -6,13 +6,18 @@
 
 body {
     background-color: rgba(128, 128, 128, 0.116);
+    overflow: hidden;
 }
 
 header {
+    text-align: center;
     display: flex;
-    justify-content: space-between;
-    margin: 0px 100px;
-    padding: 10px;
+    justify-content: center;
+    gap: 1200px;
+
+    h1 {
+        margin: 10px;
+    }
 }
 
 button {
@@ -22,10 +27,32 @@ button {
     background-color: orangered;
     font-size: 2em;
     border-radius: 12px;
-
+    
     &:hover {
         background-color: rgba(255, 68, 0, 0.534);
     }
+}
+
+#criarTarefa {
+    position: fixed;
+    top: 200px;
+    left: 1650px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.363);
+}
+
+#categoriaCriar {
+    width: 225px;
+    font-size: 1.5em;
+    margin-top: 25px;
+}
+
+div {
+    display: flex;
+    align-items: center;
+}
+
+h2 {
+    margin: 25px;
 }
 
 .adicionarTarefa {
@@ -43,29 +70,32 @@ button {
 
 #todas {
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column;
+    justify-content: center;
+    gap: 75px;
     align-items: center;
-    height: 100vh;
+    margin: 100px;
     text-align: center;
 }
 
 .secao {
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    width: 350px;
+    width: 1440px;
+    height: 300px;
     border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 12px;                  
     background-color: #ffffff;
     padding: 24px;
+    overflow-y: hidden;
+    overflow-x: auto;
 }
-
 .tarefa {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 300px;
+    width: 350px;
     border-radius: 12px;
     text-align: center;                  
     background-color: #b32424b4;

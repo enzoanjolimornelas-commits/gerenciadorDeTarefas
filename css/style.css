@@ -40,7 +40,7 @@ button {
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.363);
 }
 
-#categoriaCriar {
+.categoriaCriar {
     width: 225px;
     font-size: 1.5em;
     margin-top: 25px;
@@ -91,6 +91,7 @@ h2 {
     overflow-y: hidden;
     overflow-x: auto;
 }
+
 .tarefa {
     display: flex;
     flex-direction: column;

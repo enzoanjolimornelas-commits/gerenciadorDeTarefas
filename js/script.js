@@ -3,6 +3,13 @@ const secaoConcluido = document.getElementById("concluido");
 const botaoCriarTarefa = document.getElementById("criarTarefa");
 const padrao = document.querySelector(".default");
 
+const botaoCriarCategoria = document.querySelector(".categoriaCriar");
+let categorias = [];
+
+categorias[0] = 'Estudos';
+categorias[1] = 'Trabalho';
+categorias[2] = 'Tarefa de Casa';
+
 const hoje = new Date();
 const data = hoje.toLocaleDateString('pt-BR');
 console.log(data);
@@ -11,10 +18,21 @@ let tarefas = [];
 
 function salvarNoLocalStorage() {
     localStorage.setItem("minhasTarefas", JSON.stringify(tarefas));
+    localStorage.setItem("minhasCategorias", categorias);
 }
 
 function carregarDoLocalStorage() {
     const tarefasSalvas = localStorage.getItem("minhasTarefas");
+    const categoriasSalvas = localStorage.getItem("minhasCategorias");
+
+    const resultado = categoriasSalvas.slice(categoriasSalvas.indexOf("Tarefa de Casa,") + 1);
+
+    const particoes = categoriasSalvas.split(',');
+
+    for(let i = 3, j = 0; j < particoes.length; i++, j++) {
+        categorias[i] = particoes[j];
+    }
+
     if (tarefasSalvas) {
         padrao.style.display = 'none';
         padrao.style.display = 'none';
@@ -28,6 +46,9 @@ function carregarDoLocalStorage() {
 window.addEventListener("DOMContentLoaded", () => {
     carregarDoLocalStorage();
 });
+
+function criarCategoria(tarefaObj) {
+}
 
 function renderizarTarefa(tarefaObj) {
     const novaTarefa = document.createElement("p");
@@ -119,7 +140,7 @@ function renderizarTarefa(tarefaObj) {
         descP.replaceWith(inputDesc);
 
         const selectCat = document.createElement("select");
-        ['Estudos', 'Trabalho', 'Tarefa de casa'].forEach(texto => {
+        categorias.forEach(texto => {
             const opcao = document.createElement("option");
             opcao.value = texto.toLowerCase();
             opcao.textContent = texto;
@@ -196,7 +217,7 @@ function adicionarTarefa() {
     const categoriaTarefa = document.createElement("select");
     novaTarefa.appendChild(categoriaTarefa);
     
-    ['Estudos', 'Trabalho', 'Tarefa de casa'].forEach(texto => {
+    categorias.forEach(texto => {
         const opcao = document.createElement("option");
         opcao.value = texto.toLowerCase();
         opcao.textContent = texto;
@@ -247,4 +268,45 @@ botaoCriarTarefa.addEventListener("click", (event) => {
     event.preventDefault();
     padrao.style.display = 'none';
     adicionarTarefa();
+});
+
+botaoCriarCategoria.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    const popUp = document.createElement("div");
+   
+    popUp.style.position = 'fixed';
+    popUp.style.top = '50%';
+    popUp.style.left = '50%';
+    popUp.style.transform = 'translate(-50%, -50%)';
+    popUp.style.backgroundColor = 'orange';
+    popUp.style.width = '400px';
+    popUp.style.height = '300px';
+    popUp.style.boxShadow = '10px 5px 5px black';
+    popUp.style.borderRadius = '12px';
+    popUp.style.display = 'flex';
+    popUp.style.flexDirection = 'column';
+    popUp.style.alignItems = 'center';
+    popUp.style.justifyContent = 'space-evenly';
+
+    const campoCategoria = document.createElement("input");
+    campoCategoria.type = 'text';
+    campoCategoria.style.padding = '10px';
+    campoCategoria.placeholder = 'Digite sua categoria aqui...';
+    popUp.appendChild(campoCategoria);
+
+    const botaoCat = document.createElement("button");
+    botaoCat.classList.add("categoriaCriar");
+    botaoCat.textContent = 'Criar Categoria';
+    popUp.appendChild(botaoCat);
+
+    botaoCat.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        categorias.push(campoCategoria.value);
+        salvarNoLocalStorage();
+        popUp.remove();
+    });
+
+    document.body.appendChild(popUp);
 });

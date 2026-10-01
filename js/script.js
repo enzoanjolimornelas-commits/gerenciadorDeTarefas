@@ -1,7 +1,7 @@
 const secaoPendente = document.getElementById("pendente");
 const secaoConcluido = document.getElementById("concluido");
 const botaoCriarTarefa = document.getElementById("criarTarefa");
-const padrao = document.querySelector(".default");
+const divs = document.querySelectorAll("div");
 
 const botaoCriarCategoria = document.querySelector(".categoriaCriar");
 let categorias = [];
@@ -25,17 +25,13 @@ function carregarDoLocalStorage() {
     const tarefasSalvas = localStorage.getItem("minhasTarefas");
     const categoriasSalvas = localStorage.getItem("minhasCategorias");
 
-    const resultado = categoriasSalvas.slice(categoriasSalvas.indexOf("Tarefa de Casa,") + 1);
-
     const particoes = categoriasSalvas.split(',');
 
-    for(let i = 3, j = 0; j < particoes.length; i++, j++) {
-        categorias[i] = particoes[j];
+    for(let i = 3; i < particoes.length; i++) {
+        categorias[i] = particoes[i];
     }
-
-    if (tarefasSalvas) {
-        padrao.style.display = 'none';
-        padrao.style.display = 'none';
+    
+    if (tarefasSalvas.length !== 0) {
         tarefas = JSON.parse(tarefasSalvas);
         tarefas.forEach(tarefaObj => {
             renderizarTarefa(tarefaObj);
@@ -46,9 +42,6 @@ function carregarDoLocalStorage() {
 window.addEventListener("DOMContentLoaded", () => {
     carregarDoLocalStorage();
 });
-
-function criarCategoria(tarefaObj) {
-}
 
 function renderizarTarefa(tarefaObj) {
     const novaTarefa = document.createElement("p");
@@ -104,13 +97,41 @@ function renderizarTarefa(tarefaObj) {
 
     const botaoExcluir = document.createElement("button");
     botaoExcluir.classList.add("adicionarTarefa");
-    botaoExcluir.textContent = "Excluir";
+    botaoExcluir.style.display = 'flex';
+    botaoExcluir.style.justifyContent = 'center';
+    botaoExcluir.style.alignItems = 'center';
+
+    const botaoArrumar = document.createElement("button");
+    botaoArrumar.classList.add("adicionarTarefa");
+    botaoArrumar.style.display = 'flex';
+    botaoArrumar.style.justifyContent = 'center';
+    botaoArrumar.style.alignItems = 'center';
+
+    const deletar = document.createElement("img");
+    deletar.src = '../img/icones/delete_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.png';
     botaoExcluir.style.backgroundColor = 'red';
+    botaoExcluir.appendChild(deletar);
     botoes.appendChild(botaoExcluir);
+
+    const arrumar = document.createElement("img");
+    arrumar.src = '../img/icones/north_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.png';
+    botaoArrumar.appendChild(arrumar);
+
+    const feito = document.createElement("img");
+    feito.src = '../img/icones/check_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.png';
 
     if (tarefaObj.concluido) {
         descP.style.textDecoration = 'line-through';
         secaoConcluido.appendChild(novaTarefa);
+        label2.style.display = 'none';
+        catP.style.display = 'none';
+        label3.style.display = 'none';
+        priP.style.display = 'none';
+        botoes.appendChild(botaoArrumar);
+        novaTarefa.appendChild(feito);
+
+        feito.style.position = 'relative';
+        botaoEditar.remove();
         botaoConcluir.remove();
     } else {
         secaoPendente.appendChild(novaTarefa);
@@ -121,12 +142,18 @@ function renderizarTarefa(tarefaObj) {
         secaoConcluido.appendChild(novaTarefa);
         botaoConcluir.remove();
 
+        descP.style.textDecoration = 'line-through';
         label2.style.display = 'none';
         catP.style.display = 'none';
 
         label3.style.display = 'none';
         priP.style.display = 'none';
 
+        botaoEditar.remove();
+
+        novaTarefa.appendChild(feito);
+        botoes.appendChild(botaoArrumar);
+        feito.style.position = 'relative';
         tarefaObj.concluido = true;
         salvarNoLocalStorage();
     });
@@ -195,6 +222,29 @@ function renderizarTarefa(tarefaObj) {
         
         salvarNoLocalStorage();
         novaTarefa.remove();
+    });
+
+    botaoArrumar.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        secaoPendente.appendChild(novaTarefa);
+
+        descP.style.textDecoration = 'none';
+
+        label2.style.display = 'block';
+        catP.style.display = 'block';
+
+        label3.style.display = 'block';
+        priP.style.display = 'block';
+
+        feito.remove();
+
+        botaoArrumar.remove();
+        botaoExcluir.remove();
+
+        botoes.appendChild(botaoConcluir);
+        botoes.appendChild(botaoEditar);
+        botoes.appendChild(botaoExcluir);
     });
 }
 
@@ -266,7 +316,6 @@ function adicionarTarefa() {
 
 botaoCriarTarefa.addEventListener("click", (event) => {
     event.preventDefault();
-    padrao.style.display = 'none';
     adicionarTarefa();
 });
 

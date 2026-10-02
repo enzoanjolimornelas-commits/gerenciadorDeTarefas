@@ -1,6 +1,7 @@
 const secaoPendente = document.getElementById("pendente");
 const secaoConcluido = document.getElementById("concluido");
 const botaoCriarTarefa = document.getElementById("criarTarefa");
+const botaoPesquisar = document.getElementById("pesquisar");
 const divs = document.querySelectorAll("div");
 
 const botaoCriarCategoria = document.querySelector(".categoriaCriar");
@@ -12,7 +13,6 @@ categorias[2] = 'Tarefa de Casa';
 
 const hoje = new Date();
 const data = hoje.toLocaleDateString('pt-BR');
-console.log(data);
 
 let tarefas = [];
 
@@ -25,13 +25,14 @@ function carregarDoLocalStorage() {
     const tarefasSalvas = localStorage.getItem("minhasTarefas");
     const categoriasSalvas = localStorage.getItem("minhasCategorias");
 
-    const particoes = categoriasSalvas.split(',');
-
-    for(let i = 3; i < particoes.length; i++) {
-        categorias[i] = particoes[i];
+    if (categoriasSalvas) {
+        const particoes = categoriasSalvas.split(',');
+        for(let i = 3; i < particoes.length; i++) {
+            categorias[i] = particoes[i];
+        }
     }
     
-    if (tarefasSalvas.length !== 0) {
+    if (tarefasSalvas && tarefasSalvas.length !== 0) {
         tarefas = JSON.parse(tarefasSalvas);
         tarefas.forEach(tarefaObj => {
             renderizarTarefa(tarefaObj);
@@ -313,6 +314,68 @@ function adicionarTarefa() {
         renderizarTarefa(tarefaObj);
     });
 }
+
+function pesquisar(valor) {
+    const tarefasVisiveis = document.querySelectorAll('.tarefa');
+    tarefasVisiveis.forEach(elemento => elemento.remove());
+
+    tarefas.forEach((tarefa) => {
+        if (valor === "todas" || tarefa.categoria.toLowerCase() === valor) {
+            renderizarTarefa(tarefa);
+        }
+    });
+}
+
+botaoPesquisar.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    const popUp = document.createElement("div");
+   
+    popUp.style.position = 'fixed';
+    popUp.style.top = '50%';
+    popUp.style.left = '50%';
+    popUp.style.transform = 'translate(-50%, -50%)';
+    popUp.style.backgroundColor = 'orange';
+    popUp.style.width = '400px';
+    popUp.style.height = '300px';
+    popUp.style.boxShadow = '10px 5px 5px black';
+    popUp.style.borderRadius = '12px';
+    popUp.style.display = 'flex';
+    popUp.style.flexDirection = 'column';
+    popUp.style.alignItems = 'center';
+    popUp.style.justifyContent = 'space-evenly';
+
+    const selecionarCategoria = document.createElement("select");
+    
+    const opcaoTodas = document.createElement("option");
+    opcaoTodas.value = "todas";
+    opcaoTodas.textContent = "Todas as categorias";
+    selecionarCategoria.appendChild(opcaoTodas);
+
+    categorias.forEach(texto => {
+        const opcao = document.createElement("option");
+        opcao.value = texto.toLowerCase();
+        opcao.textContent = texto;
+        selecionarCategoria.appendChild(opcao);
+    });
+    popUp.appendChild(selecionarCategoria);
+    
+    const botao = document.createElement("button");
+    botao.classList.add("categoriaCriar");
+    botao.textContent = 'Pesquisar';
+    botao.style.backgroundColor = 'rgb(0, 47, 255)';
+    popUp.appendChild(botao);
+
+    botao.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        pesquisar(selecionarCategoria.value);
+
+        popUp.remove();
+    });
+
+    document.body.appendChild(popUp);
+});
 
 botaoCriarTarefa.addEventListener("click", (event) => {
     event.preventDefault();

@@ -54,6 +54,20 @@ a {
     z-index: 1000;
 }
 
+#pesquisar {
+    background-color: rgb(0, 47, 255);
+    text-align: center;
+    position: fixed;
+    bottom: 2rem;
+    right: 6rem;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.363);
+    z-index: 1000;
+
+    &:hover {
+        background-color: rgba(0, 47, 255, 0.418);
+    }
+}
+
 .categoriaCriar {
     width: auto;
     padding: 0.5rem 1rem;

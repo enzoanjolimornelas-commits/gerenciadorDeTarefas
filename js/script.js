@@ -109,17 +109,17 @@ function renderizarTarefa(tarefaObj) {
     botaoArrumar.style.alignItems = 'center';
 
     const deletar = document.createElement("img");
-    deletar.src = '../img/icones/delete_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.png';
+    deletar.src = './../img/icones/delete_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.png';
     botaoExcluir.style.backgroundColor = 'red';
     botaoExcluir.appendChild(deletar);
     botoes.appendChild(botaoExcluir);
 
     const arrumar = document.createElement("img");
-    arrumar.src = '../img/icones/north_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.png';
+    arrumar.src = './../img/icones/north_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.png';
     botaoArrumar.appendChild(arrumar);
 
     const feito = document.createElement("img");
-    feito.src = '../img/icones/check_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.png';
+    feito.src = './../img/icones/check_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.png';
 
     if (tarefaObj.concluido) {
         descP.style.textDecoration = 'line-through';

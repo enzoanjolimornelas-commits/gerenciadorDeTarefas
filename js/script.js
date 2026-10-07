@@ -128,6 +128,7 @@ function renderizarTarefa(tarefaObj) {
         catP.style.display = 'none';
         label3.style.display = 'none';
         priP.style.display = 'none';
+
         botoes.appendChild(botaoArrumar);
         novaTarefa.appendChild(feito);
 
@@ -141,6 +142,12 @@ function renderizarTarefa(tarefaObj) {
     botaoConcluir.addEventListener("click", (event) => {
         event.preventDefault();
         secaoConcluido.appendChild(novaTarefa);
+
+        novaTarefa.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+
         botaoConcluir.remove();
 
         descP.style.textDecoration = 'line-through';
@@ -295,6 +302,11 @@ function adicionarTarefa() {
     botao.classList.add("adicionarTarefa");
     botao.textContent = "Adicionar Tarefa";
     novaTarefa.appendChild(botao);
+
+    novaTarefa.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    });
 
     botao.addEventListener("click", (event) => {
         event.preventDefault();

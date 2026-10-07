@@ -4,6 +4,10 @@
     margin: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: rgba(128, 128, 128, 0.116);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -164,6 +168,11 @@ h2 {
     #criarTarefa {
         bottom: 1rem;
         right: 1rem;
+    }
+
+    #pesquisar {
+        bottom: 1rem;
+        right: 5rem;
     }
 
     #todas {

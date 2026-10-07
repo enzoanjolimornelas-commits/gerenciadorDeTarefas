@@ -237,6 +237,11 @@ function renderizarTarefa(tarefaObj) {
 
         secaoPendente.appendChild(novaTarefa);
 
+        novaTarefa.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+
         descP.style.textDecoration = 'none';
 
         label2.style.display = 'block';
@@ -305,7 +310,7 @@ function adicionarTarefa() {
 
     novaTarefa.scrollIntoView({
         behavior: 'smooth',
-        block: 'start'
+        block: 'center'
     });
 
     botao.addEventListener("click", (event) => {

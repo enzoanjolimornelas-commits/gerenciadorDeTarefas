@@ -352,17 +352,22 @@ botaoPesquisar.addEventListener("click", (event) => {
     popUp.style.top = '50%';
     popUp.style.left = '50%';
     popUp.style.transform = 'translate(-50%, -50%)';
-    popUp.style.backgroundColor = 'orange';
-    popUp.style.width = '400px';
-    popUp.style.height = '300px';
-    popUp.style.boxShadow = '10px 5px 5px black';
-    popUp.style.borderRadius = '12px';
+    popUp.style.backgroundColor = '#ffffff';
+    popUp.style.border = '1px solid #e2e8f0';
+    popUp.style.width = '380px';
+    popUp.style.padding = '2rem';
+    popUp.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1)';
+    popUp.style.borderRadius = '0.5rem';
     popUp.style.display = 'flex';
     popUp.style.flexDirection = 'column';
-    popUp.style.alignItems = 'center';
-    popUp.style.justifyContent = 'space-evenly';
+    popUp.style.alignItems = 'stretch';
+    popUp.style.gap = '1.25rem';
+    popUp.style.zIndex = '2000';
 
     const selecionarCategoria = document.createElement("select");
+    selecionarCategoria.style.padding = '0.5rem';
+    selecionarCategoria.style.borderRadius = '0.5rem';
+    selecionarCategoria.style.border = '1px solid #e2e8f0';
     
     const opcaoTodas = document.createElement("option");
     opcaoTodas.value = "todas";
@@ -380,7 +385,6 @@ botaoPesquisar.addEventListener("click", (event) => {
     const botao = document.createElement("button");
     botao.classList.add("categoriaCriar");
     botao.textContent = 'Pesquisar';
-    botao.style.backgroundColor = 'rgb(0, 47, 255)';
     popUp.appendChild(botao);
 
     botao.addEventListener("click", (event) => {
@@ -408,19 +412,23 @@ botaoCriarCategoria.addEventListener("click", (event) => {
     popUp.style.top = '50%';
     popUp.style.left = '50%';
     popUp.style.transform = 'translate(-50%, -50%)';
-    popUp.style.backgroundColor = 'orange';
-    popUp.style.width = '400px';
-    popUp.style.height = '300px';
-    popUp.style.boxShadow = '10px 5px 5px black';
-    popUp.style.borderRadius = '12px';
+    popUp.style.backgroundColor = '#ffffff';
+    popUp.style.border = '1px solid #e2e8f0';
+    popUp.style.width = '380px';
+    popUp.style.padding = '2rem';
+    popUp.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1)';
+    popUp.style.borderRadius = '0.5rem';
     popUp.style.display = 'flex';
     popUp.style.flexDirection = 'column';
-    popUp.style.alignItems = 'center';
-    popUp.style.justifyContent = 'space-evenly';
+    popUp.style.alignItems = 'stretch';
+    popUp.style.gap = '1.25rem';
+    popUp.style.zIndex = '2000';
 
     const campoCategoria = document.createElement("input");
     campoCategoria.type = 'text';
-    campoCategoria.style.padding = '10px';
+    campoCategoria.style.padding = '0.5rem';
+    campoCategoria.style.borderRadius = '0.5rem';
+    campoCategoria.style.border = '1px solid #e2e8f0';
     campoCategoria.placeholder = 'Digite sua categoria aqui...';
     popUp.appendChild(campoCategoria);
 

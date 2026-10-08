@@ -1,3 +1,15 @@
+:root {
+    --primary-color: #2563eb;
+    --primary-hover: #1d4ed8;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --radius: 0.5rem;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+}
+
 * {
     box-sizing: border-box;
     padding: 0;
@@ -9,40 +21,37 @@ html {
 }
 
 body {
-    background-color: rgba(128, 128, 128, 0.116);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: var(--text-main);
     font-size: 1rem;
-    overflow-x: hidden;
+    line-height: 1.5;
 }
 
 header {
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 2rem;
     text-align: center;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-    padding: 1rem;
     gap: 1rem;
 }
 
 header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
     margin: 0.5rem;
 }
 
 button, a {
-    width: 3rem;
-    height: 3rem;
-    border-color: transparent;
-    color: black;
     text-decoration: none;
-    background-color: orangered;
-    font-size: 2rem;
-    border-radius: 0.75rem;
-    padding: 0.5rem;
-}
-
-button:hover, a:hover {
-    background-color: rgba(255, 68, 0, 0.534);
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
 }
 
 a {
@@ -50,44 +59,82 @@ a {
 }
 
 #criarTarefa {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 2rem;
     text-align: center;
     position: fixed;
     bottom: 2rem;
     right: 2rem;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.363);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#criarTarefa:hover {
+    background-color: var(--primary-hover);
+    transform: scale(1.05);
 }
 
 #pesquisar {
-    background-color: rgb(0, 47, 255);
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background-color: var(--card-bg);
     text-align: center;
     position: fixed;
     bottom: 2rem;
     right: 6rem;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.363);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-    &:hover {
-        background-color: rgba(0, 47, 255, 0.418);
-    }
+#pesquisar:hover {
+    transform: scale(1.05);
+    background-color: #f1f5f9;
 }
 
 .categoriaCriar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: auto;
     padding: 0.5rem 1rem;
-    font-size: 1.5rem;
-    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: var(--primary-color);
+    color: white;
+    margin-top: 0;
+}
+
+.categoriaCriar:hover {
+    background-color: var(--primary-hover);
+}
+
+#irConcluidos {
+    display: none;
 }
 
 .bloco-tarefas {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 1rem;
     width: 100%;
 }
 
 h2 {
-    margin: 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin: 1.5rem 0 0.5rem 0;
 }
 
 .adicionarTarefa {
@@ -95,60 +142,59 @@ h2 {
     height: auto;
     padding: 0.5rem 1rem;
     border-color: transparent;
-    background-color: orangered;
-    font-size: 1rem;
-    border-radius: 0.75rem;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: var(--radius);
 }
 
 .adicionarTarefa:hover {
-    background-color: rgba(255, 68, 0, 0.534);
+    background-color: var(--primary-hover);
 }
 
 #todas {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 3rem;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
     margin: 2rem auto;
-    text-align: center;
     width: 95%;
     max-width: 1400px;
 }
 
 .secao {
     display: flex;
+    flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
+    align-items: stretch;
     width: 100%;
-    min-height: 20rem;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 0.75rem;
-    background-color: #ffffff;
-    padding: 1.5rem;
-    overflow-y: hidden;
-    overflow-x: auto;
+    min-height: 24rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    background-color: var(--card-bg);
+    padding: 1.25rem;
+    box-shadow: var(--shadow);
+    gap: 1rem;
+    overflow-y: auto;
 }
 
 .tarefa {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 20rem;
-    flex-shrink: 0;
-    border-radius: 0.75rem;
-    text-align: center;
-    background-color: #b32424b4;
-    margin: 0.5rem;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--primary-color);
+    border-radius: var(--radius);
     padding: 1rem;
     gap: 0.5rem;
+    box-shadow: var(--shadow);
 }
 
 .default {
-    font-size: 2rem;
+    font-size: 1rem;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 480px) {
     body {
         overflow: auto;
     }
@@ -157,39 +203,33 @@ h2 {
         flex-direction: column;
     }
 
-    .bloco-tarefas {
-        align-items: center;
-    }
-
     a {
         display: block;
     }
 
     #criarTarefa {
-        bottom: 1rem;
-        right: 1rem;
+        bottom: 1.5rem;
+        right: 1.5rem;
     }
 
     #pesquisar {
-        bottom: 1rem;
-        right: 5rem;
+        bottom: 1.5rem;
+        right: 5.5rem;
     }
 
     #todas {
         margin: 1rem auto;
         gap: 2rem;
+        display: flex;
+        flex-direction: column;
     }
 
     .secao {
-        flex-direction: column;
-        overflow-y: auto;
-        overflow-x: hidden;
         min-height: auto;
         padding: 1rem;
     }
 
-    .tarefa {
-        width: 100%;
-        max-width: 20rem;
+    #irConcluidos {
+        display: block;
     }
 }

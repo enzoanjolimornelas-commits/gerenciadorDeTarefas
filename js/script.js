@@ -118,9 +118,6 @@ function renderizarTarefa(tarefaObj) {
     arrumar.src = 'img/icones/north_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.png';
     botaoArrumar.appendChild(arrumar);
 
-    const feito = document.createElement("img");
-    feito.src = 'img/icones/check_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.png';
-
     if (tarefaObj.concluido) {
         descP.style.textDecoration = 'line-through';
         secaoConcluido.appendChild(novaTarefa);
@@ -130,9 +127,7 @@ function renderizarTarefa(tarefaObj) {
         priP.style.display = 'none';
 
         botoes.appendChild(botaoArrumar);
-        novaTarefa.appendChild(feito);
-
-        feito.style.position = 'relative';
+    
         botaoEditar.remove();
         botaoConcluir.remove();
     } else {
@@ -159,9 +154,7 @@ function renderizarTarefa(tarefaObj) {
 
         botaoEditar.remove();
 
-        novaTarefa.appendChild(feito);
         botoes.appendChild(botaoArrumar);
-        feito.style.position = 'relative';
         tarefaObj.concluido = true;
         salvarNoLocalStorage();
     });
@@ -249,8 +242,6 @@ function renderizarTarefa(tarefaObj) {
 
         label3.style.display = 'block';
         priP.style.display = 'block';
-
-        feito.remove();
 
         botaoArrumar.remove();
         botaoExcluir.remove();
